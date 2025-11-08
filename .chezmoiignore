@@ -1,0 +1,6 @@
+STDIN
+**/cache/**
+**/CachedData/**
+**/*.log
+**/*history*
+**/sessions/**
