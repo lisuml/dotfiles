@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+eval "$(ssh-agent -s)" >/dev/null 2>&1 || true
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+  echo "🔑 Generating per-device SSH key..."
+  ssh-keygen -t ed25519 -a 100 -f "$HOME/.ssh/id_ed25519" -C "michal@{{ .hostname }}"
+  chmod 600 "$HOME/.ssh/id_ed25519"
+  chmod 644 "$HOME/.ssh/id_ed25519.pub"
+fi
+ssh-add "$HOME/.ssh/id_ed25519" >/dev/null 2>&1 || true
+if command -v gh >/dev/null 2>&1; then
+  if gh auth status >/dev/null 2>&1; then
+    gh ssh-key add "$HOME/.ssh/id_ed25519.pub" -t "{{ .hostname }}" >/dev/null 2>&1 || true
+  fi
+fi
