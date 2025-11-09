@@ -1,11 +1,24 @@
 #!/usr/bin/env fish
 
-# Create ~/.ssh with safe perms
+# ---- Shared ssh-agent for all terminals ----
+set -l sock "$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# If no socket yet, start an agent bound to a fixed path
+if not test -S "$sock"
+    # Start agent and export env; don't silence this, we need the exports
+    eval (ssh-agent -c -a "$sock")
+end
+
+# Make every fish session use the same socket (persist + export)
+set -Ux SSH_AUTH_SOCK "$sock"
+# (Optional but harmless) export the PID too if agent just started
+if set -q SSH_AGENT_PID
+    set -Ux SSH_AGENT_PID "$SSH_AGENT_PID"
+end
+
+# ---- Safe ~/.ssh ----
 mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
-
-# Start ssh-agent (fish uses csh output format)
-eval (ssh-agent -c) >/dev/null 2>&1; or true
 
 # Generate per-device key if missing
 if not test -f "$HOME/.ssh/id_ed25519"
@@ -15,27 +28,23 @@ if not test -f "$HOME/.ssh/id_ed25519"
     chmod 644 "$HOME/.ssh/id_ed25519.pub"
 end
 
-# Add the key to the agent
-ssh-add "$HOME/.ssh/id_ed25519" >/dev/null 2>&1; or true
+# Add key (now visible from ALL terminals because they share $SSH_AUTH_SOCK)
+ssh-add "$HOME/.ssh/id_ed25519"; or true
 
-# GitHub: login via HTTPS, ensure scope, upload key, then switch to SSH
+# ---- GitHub login (HTTPS), upload key, then switch to SSH ----
 if type -q gh
-    if not gh auth status -h github.com >/dev/null 2>&1
-        echo "🔐 Logging in to GitHub (HTTPS first)…"
+    if not gh auth status >/dev/null 2>&1
+        echo "🔐 Logging in to GitHub (HTTPS)…"
         gh auth login --hostname github.com --web --git-protocol https
     end
 
-    # Make sure the token has the admin:public_key scope required to add SSH keys
-    echo "🪪 Ensuring token has admin:public_key scope…"
-    gh auth refresh -h github.com -s admin:public_key
-
     echo "⬆️  Uploading SSH key to GitHub…"
-    if gh ssh-key add "$HOME/.ssh/id_ed25519.pub" -t "{{ .chezmoi.hostname }}" >/dev/null 2>&1
+    if gh ssh-key add "$HOME/.ssh/id_ed25519.pub" -t "{{ .chezmoi.hostname }}"
         gh config set git_protocol ssh >/dev/null 2>&1; or true
-        gh auth setup-git >/dev/null 2>&1; or true
-        echo "✅ Key uploaded and Git configured to use SSH."
+        gh auth setup-git        >/dev/null 2>&1; or true
+        echo "✅ Key uploaded and Git set to use SSH."
     else
-        echo "⚠️  Couldn’t upload the SSH key to GitHub."
-        echo "   Try manually: gh ssh-key add \"$HOME/.ssh/id_ed25519.pub\" -t \"{{ .chezmoi.hostname }}\""
+        echo "⚠️  Couldn’t upload the SSH key. Retry:"
+        echo "    gh ssh-key add \"$HOME/.ssh/id_ed25519.pub\" -t \"{{ .chezmoi.hostname }}\""
     end
 end
