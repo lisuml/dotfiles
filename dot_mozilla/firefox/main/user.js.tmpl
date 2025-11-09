@@ -1,0 +1,4 @@
+{{- $base := include "dot_mozilla/firefox/main/user.js.base" -}}
+{{ $base }}
+/*** user-overrides.js ***/
+{{ include "dot_mozilla/firefox/main/user-overrides.js" }}
