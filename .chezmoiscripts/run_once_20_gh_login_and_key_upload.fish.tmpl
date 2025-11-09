@@ -1,20 +1,43 @@
 #!/usr/bin/env fish
 
-# Log into GitHub via HTTPS first, then upload key and switch to SSH
-if type -q gh
-    if not gh auth status >/dev/null 2>&1
-        echo "🔐 Logging in to GitHub (HTTPS)…"
-        gh auth login --hostname github.com --web --git-protocol https
-    end
+if not type -q gh
+    echo "ℹ️  GitHub CLI (gh) not installed — skipping."
+    exit 0
+end
 
-    echo "⬆️  Uploading SSH key to GitHub…"
-    if gh ssh-key add "$HOME/.ssh/id_ed25519.pub" -t "{{ .chezmoi.hostname }}"
-        gh config set git_protocol ssh >/dev/null 2>&1; or true
-        gh auth setup-git        >/dev/null 2>&1; or true
-        echo "✅ Key uploaded and Git set to use SSH."
+# Log in if needed
+if not gh auth status >/dev/null 2>&1
+    echo "🔐 Logging in to GitHub (HTTPS)…"
+    gh auth login --hostname github.com --web --git-protocol https
+end
+
+# Ensure token has admin:public_key
+if not gh auth status -t 2>/dev/null | string match -q "*admin:public_key*"
+    echo "🔧 Adding missing scope admin:public_key…"
+    gh auth refresh -h github.com -s admin:public_key
+end
+
+set -l PUB "$HOME/.ssh/id_ed25519.pub"
+set -l TITLE "{{ .chezmoi.hostname }}"
+
+if test -f "$PUB"
+    # avoid duplicate upload: compare fingerprint
+    set -l fp (ssh-keygen -lf "$PUB" | awk '{print $2}')
+    if gh ssh-key list | grep -Fq "$fp"
+        echo "✅ SSH key already uploaded to GitHub."
     else
-        echo "⚠️  Failed to upload SSH key to GitHub."
+        echo "⬆️  Uploading SSH key to GitHub…"
+        if gh ssh-key add "$PUB" -t "$TITLE"
+            echo "✅ Key uploaded."
+        else
+            echo "⚠️  Failed to upload SSH key to GitHub."
+        end
     end
 else
-    echo "ℹ️  GitHub CLI (gh) not installed — skipping."
+    echo "⚠️  No public key at $PUB — skipping upload."
 end
+
+# Switch git to SSH
+gh config set git_protocol ssh >/dev/null 2>&1; or true
+gh auth setup-git        >/dev/null 2>&1; or true
+echo "🔁 git set to use SSH."
