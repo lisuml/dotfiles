@@ -1,26 +1,33 @@
-#!/usr/bin/env fish
+#!/usr/bin/env sh
+# run_once_10_ssh_setup.sh.tmpl
 
-# Shared ssh-agent for all terminals
-set -l sock "$XDG_RUNTIME_DIR/ssh-agent.socket"
-if not test -S "$sock"
-    eval (ssh-agent -c -a "$sock")
-end
-set -Ux SSH_AUTH_SOCK "$sock"
-if set -q SSH_AGENT_PID
-    set -Ux SSH_AGENT_PID "$SSH_AGENT_PID"
-end
+set -eu
+
+# Choose a stable agent socket
+: "${XDG_RUNTIME_DIR:=${TMPDIR:-/tmp}}"
+sock="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# Start a shared ssh-agent if the socket doesn't exist
+if [ ! -S "$sock" ]; then
+    # -a sets socket path; -s prints sh-compatible exports
+    eval "$(ssh-agent -s -a "$sock")"
+fi
+
+# Export variables for current process; agent may or may not set PID on attach
+export SSH_AUTH_SOCK="$sock"
+[ -n "${SSH_AGENT_PID:-}" ] && export SSH_AGENT_PID
 
 # Secure ~/.ssh
 mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
 
 # Generate key if missing
-if not test -f "$HOME/.ssh/id_ed25519"
-    echo "🔑 Generating per-device SSH key..."
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+    echo "Generating per-device SSH key..."
     ssh-keygen -t ed25519 -a 100 -f "$HOME/.ssh/id_ed25519" -C "michal@{{ .chezmoi.hostname }}"
     chmod 600 "$HOME/.ssh/id_ed25519"
     chmod 644 "$HOME/.ssh/id_ed25519.pub"
-end
+fi
 
-# Add key to agent
-ssh-add "$HOME/.ssh/id_ed25519"; or true
+# Add key to agent (ignore if already added)
+ssh-add "$HOME/.ssh/id_ed25519" >/dev/null 2>&1 || true

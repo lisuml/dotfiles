@@ -1,43 +1,44 @@
-#!/usr/bin/env fish
+#!/usr/bin/env sh
 
-if not type -q gh
-    echo "ℹ️  GitHub CLI (gh) not installed — skipping."
+# Check if GitHub CLI (gh) is installed
+if ! command -v gh >/dev/null 2>&1; then
+    echo "GitHub CLI (gh) not installed — skipping."
     exit 0
-end
+fi
 
 # Log in if needed
-if not gh auth status >/dev/null 2>&1
-    echo "🔐 Logging in to GitHub (HTTPS)…"
+if ! gh auth status >/dev/null 2>&1; then
+    echo "Logging in to GitHub (HTTPS)…"
     gh auth login --hostname github.com --web --git-protocol https
-end
+fi
 
 # Ensure token has admin:public_key
-if not gh auth status -t 2>/dev/null | string match -q "*admin:public_key*"
-    echo "🔧 Adding missing scope admin:public_key…"
+if ! gh auth status -t 2>/dev/null | grep -q "admin:public_key"; then
+    echo "Adding missing scope admin:public_key…"
     gh auth refresh -h github.com -s admin:public_key
-end
+fi
 
-set -l PUB "$HOME/.ssh/id_ed25519.pub"
-set -l TITLE "{{ .chezmoi.hostname }}"
+PUB="$HOME/.ssh/id_ed25519.pub"
+TITLE="{{ .chezmoi.hostname }}"
 
-if test -f "$PUB"
-    # avoid duplicate upload: compare fingerprint
-    set -l fp (ssh-keygen -lf "$PUB" | awk '{print $2}')
-    if gh ssh-key list | grep -Fq "$fp"
-        echo "✅ SSH key already uploaded to GitHub."
+if [ -f "$PUB" ]; then
+    # Avoid duplicate upload: compare fingerprint
+    fp=$(ssh-keygen -lf "$PUB" | awk '{print $2}')
+    if gh ssh-key list | grep -Fq "$fp"; then
+        echo "SSH key already uploaded to GitHub."
     else
-        echo "⬆️  Uploading SSH key to GitHub…"
-        if gh ssh-key add "$PUB" -t "$TITLE"
-            echo "✅ Key uploaded."
+        echo "Uploading SSH key to GitHub…"
+        if gh ssh-key add "$PUB" -t "$TITLE"; then
+            echo "Key uploaded."
         else
-            echo "⚠️  Failed to upload SSH key to GitHub."
-        end
-    end
+            echo "Failed to upload SSH key to GitHub."
+        fi
+    fi
 else
-    echo "⚠️  No public key at $PUB — skipping upload."
-end
+    echo "No public key at $PUB — skipping upload."
+fi
 
 # Switch git to SSH
-gh config set git_protocol ssh >/dev/null 2>&1; or true
-gh auth setup-git        >/dev/null 2>&1; or true
-echo "🔁 git set to use SSH."
+gh config set git_protocol ssh >/dev/null 2>&1 || true
+gh auth setup-git >/dev/null 2>&1 || true
+echo "git set to use SSH."
