@@ -11,7 +11,7 @@ if [ -n "$repo_dir" ] && [ -d "$repo_dir/.git" ]; then
                 if echo "$remote_url" | grep -Eq '^https://github\.com/([^/]+)/([^/]+?)(\.git)?$'; then
                     user=$(echo "$remote_url" | sed -E 's|^https://github\.com/([^/]+)/.*|\1|')
                     repo=$(echo "$remote_url" | sed -E 's|^https://github\.com/[^/]+/([^/]+?)(\.git)?$|\1|')
-                    ssh_url="git@github.com:$user/$repo.git"
+                    ssh_url="git@github.com:$user/$repo"
                     echo "Updating dotfiles remote URL to SSH: $ssh_url"
                     git remote set-url origin "$ssh_url"
                 elif echo "$remote_url" | grep -Eq '^git@github\.com:.*'; then
