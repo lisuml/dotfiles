@@ -1,0 +1,45 @@
+" Enable pathogen
+" execute pathogen#infect()
+" filetype plugin on
+" filetype plugin indent on
+
+set wildmenu            " Show possibilities during autocomplete 
+set nocompatible	     " Use Vim defaults (much better!)
+set bs=indent,eol,start " Allow backspacing over everything in insert mode
+set viminfo='20,\"50	 " Read/write a .viminfo file, don't store more than 50
+                        " Lines of registers
+set history=50		     " Keep 50 lines of command line history
+set ruler		           " Show the cursor position all the time
+set expandtab           " Use appropriate number of spaces to inser a <Tab>
+set tabstop=2           " Number of spaces that <Tab> in the file counts for
+set shiftwidth=2        " Number of spces to use for each step of (auto)indent
+
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+  autocmd!
+  " When editing a file, always jump to the last cursor position
+  autocmd BufReadPost *
+  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+  \   exe "normal! g'\"" |
+  \ endif
+  " Don't write swapfile on most commonly used directories for NFS mounts or USB
+  " sticks
+  autocmd BufNewFile,BufReadPre /media/*,/run/media/*,/mnt/* set
+  \ directory=~/tmp,/var/tmp,/tmp
+endif
+
+" Only do this part when terminal has colors
+if &t_Co > 2 || has("gui_running")
+  " Switch syntax highlighting on
+  syntax on
+  " Switch on highlighting the elast used search pattern
+  set hlsearch
+  highlight Search    ctermfg=15 ctermbg=238 cterm=NONE
+  highlight IncSearch ctermfg=0  ctermbg=109 cterm=NONE
+  " Change color if line exceeds 80 characters
+  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+  match OverLength /\%81v.\+/
+endif
+
+" Don't wake up system with blinking cursor:
+let &guicursor = &guicursor . ",a:blinkon0"
