@@ -8,9 +8,6 @@
     {
       "name": "{{ $t.name }}",
       "url": "{{ $t.url }}",
-    {{- if lt (add $i 1) (len $teams) }},{{ end }}
-    {{- end }}
-    {{- end }}
       "order": 0,
       "lastActiveTab": 0,
       "tabs": [
@@ -28,7 +25,9 @@
           "order": 2
         }
       ]
-    }
+    {{- if lt (add $i 1) (len $teams) }},{{ end }}
+    {{- end }}
+    }{{ end }}
   ],
   "showTrayIcon": true,
   "trayIconTheme": "use_system",
