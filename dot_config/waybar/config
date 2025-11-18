@@ -10,7 +10,7 @@
 
     "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/waybar-media", "custom/updates", "backlight", "custom/keyboard-layout", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "clock","custom/power"],
+    "modules-right": ["custom/waybar-media", "custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "clock","custom/power"],
 
  // Modules configuration
 
@@ -139,10 +139,6 @@
        	"on-click": "nwgbar",
       	"tooltip": false,
    },
-   "custom/keyboard-layout": {
-      	"format": " Cheat", // Icon: keyboard
-        "on-click": "~/.config/waybar/scripts/keyhint.sh",
-     },
     "custom/launcher": {
     "format":"    ",
     	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
