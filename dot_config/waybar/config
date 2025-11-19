@@ -10,7 +10,7 @@
 
     "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/waybar-media", "custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "clock","custom/power"],
+    "modules-right": ["custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock","custom/power"],
 
  // Modules configuration
 
@@ -99,29 +99,6 @@
         //"format-icons": ["", "", "", "", "", "", "", "", "", ""]
         //"format": "&#x202b;{icon}&#x202c; {capacity}%",
         //"format-icons": ["ﱉ","ﱊ","ﱌ","ﱍ","ﱋ"]
-    },
-      "network": {
-        //"interface": "wlp0s20f3", // (Optional) To force the use of this interface  "format-wifi": "  {essid}",
-        "format": "⚠Disabled",
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "⚠Disabled",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "family": "ipv4",
-        "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
-        "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-        //"min-length": 2,
-        //"max-length": 2,
-        "on-click": "nm-connection-editor"
-    },
-    "custom/waybar-media": {
-      "return-type": "json",
-      "exec": "waybar-media.py status",
-      "on-click": "waybar-media.py playpause",
-      "on-scroll-up": "waybar-media.py previous",
-      "on-scroll-down": "waybar-media.py next",
-      "escape": true
     },
    "custom/updates": {
        "format": "{} {icon}",
