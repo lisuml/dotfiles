@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Get monitor info from Hyprland (JSON)
+monitors_json=$(hyprctl -j monitors)
+
+# Internal = first eDP-* output (typical laptop panel)
+internal=$(echo "$monitors_json" | jq -r '.[] | select(.name | startswith("eDP-")) | .name' | head -n1)
+
+# External = first HDMI-* or DP-* output
+external=$(echo "$monitors_json" | jq -r '.[] | select(.name | (startswith("HDMI-") or startswith("DP-"))) | .name' | head -n1)
+
+choice=$(printf "Laptop only\nExternal only\nBoth (external primary)\nCancel" \
+    | wofi --dmenu --prompt "Displays")
+
+case "$choice" in
+  "Laptop only")
+    if [ -n "${internal:-}" ]; then
+      hyprctl keyword monitor "$internal,preferred,0x0,1"
+    fi
+    if [ -n "${external:-}" ]; then
+      hyprctl keyword monitor "$external,disable"
+    fi
+    ;;
+  "External only")
+    if [ -n "${external:-}" ]; then
+      hyprctl keyword monitor "$external,preferred,0x0,1"
+    fi
+    if [ -n "${internal:-}" ]; then
+      hyprctl keyword monitor "$internal,disable"
+    fi
+    ;;
+  "Both (external primary)")
+    if [ -n "${external:-}" ]; then
+      # External at 0x0
+      hyprctl keyword monitor "$external,preferred,0x0,1"
+
+      # Laptop to the right of external
+      if [ -n "${internal:-}" ]; then
+        width=$(echo "$monitors_json" | jq -r ".[] | select(.name==\"$external\") | .width")
+        [ "$width" = "null" ] && width=2560
+        hyprctl keyword monitor "$internal,preferred,${width}x0,1"
+      fi
+    fi
+    ;;
+  *)
+    # Cancel / empty choice: do nothing
+    ;;
+esac
