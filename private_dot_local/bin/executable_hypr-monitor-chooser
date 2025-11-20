@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Get monitor info from Hyprland (JSON)
-monitors_json=$(hyprctl -j monitors)
+monitors_json=$(hyprctl -j monitors all)
 
 # Internal = first eDP-* output (typical laptop panel)
 internal=$(echo "$monitors_json" | jq -r '.[] | select(.name | startswith("eDP-")) | .name' | head -n1)
