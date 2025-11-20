@@ -1,0 +1,14 @@
+[Unit]
+Description=wpaperd wallpaper daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wpaperd
+Restart=always
+RestartSec=2
+Environment=RUST_BACKTRACE=1
+
+[Install]
+WantedBy=graphical-session.target
