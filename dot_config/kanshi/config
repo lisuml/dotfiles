@@ -1,0 +1,22 @@
+# Defaults for your Lenovo external
+output "Lenovo Group Limited L24q-10 U5V0Y19A" {
+    mode 2560x1440@59.95Hz
+    scale 1
+    position 0,0
+}
+
+# 1) Laptop docked: eDP-1 + Lenovo -> use ONLY Lenovo
+profile laptop_docked_lenovo_only {
+    output eDP-1 disable
+    output "Lenovo Group Limited L24q-10 U5V0Y19A" enable
+}
+
+# 2) Laptop undocked: ONLY internal panel
+profile laptop_undocked_internal_only {
+    output eDP-1 enable position 0,0 scale 1
+}
+
+# 3) Any machine with ONLY Lenovo (e.g. your home PC)
+profile lenovo_only {
+    output "Lenovo Group Limited L24q-10 U5V0Y19A" enable
+}
