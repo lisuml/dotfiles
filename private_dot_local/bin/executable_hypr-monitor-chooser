@@ -15,32 +15,32 @@ choice=$(printf "Laptop only\nExternal only\nBoth (external primary)\nCancel" \
 
 case "$choice" in
   "Laptop only")
-    if [ -n "${internal:-}" ]; then
-      hyprctl keyword monitor "$internal,preferred,0x0,1"
-    fi
     if [ -n "${external:-}" ]; then
       hyprctl keyword monitor "$external,disable"
     fi
+    if [ -n "${internal:-}" ]; then
+      hyprctl keyword monitor "$internal,preferred,0x0,1"
+    fi
     ;;
   "External only")
-    if [ -n "${external:-}" ]; then
-      hyprctl keyword monitor "$external,preferred,0x0,1"
-    fi
     if [ -n "${internal:-}" ]; then
       hyprctl keyword monitor "$internal,disable"
     fi
-    ;;
-  "Both (external primary)")
     if [ -n "${external:-}" ]; then
-      # External at 0x0
       hyprctl keyword monitor "$external,preferred,0x0,1"
+    fi
+    ;;
+    "Both (external primary)")
+    if [ -n "${external:-}" ] && [ -n "${internal:-}" ]; then
+      width=$(echo "$monitors_json" | jq -r ".[] | select(.name==\"$external\") | .width")
+      [ "$width" = "null" ] && width=2560
 
-      # Laptop to the right of external
-      if [ -n "${internal:-}" ]; then
-        width=$(echo "$monitors_json" | jq -r ".[] | select(.name==\"$external\") | .width")
-        [ "$width" = "null" ] && width=2560
-        hyprctl keyword monitor "$internal,preferred,${width}x0,1"
-      fi
+      # 1) Move laptop panel to the right first (avoids overlap warning)
+      hyprctl keyword monitor "$internal,preferred,${width}x0,1"
+      # 2) Put external at 0x0
+      hyprctl keyword monitor "$external,preferred,0x0,1"
+      # 3) Re-assert internal (belt + braces)
+      hyprctl keyword monitor "$internal,preferred,${width}x0,1"
     fi
     ;;
   *)
