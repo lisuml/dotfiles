@@ -2,14 +2,14 @@
   "version": 4,
   "servers": [
     {{- $mm := .mattermost -}}
-    {{- if index $mm "teams" -}}
-    {{- $teams := $mm.teams -}}
-    {{- range $i, $t := $teams }}
+    {{- if index $mm "servers" -}}
+    {{- $servers := $mm.servers -}}
+    {{- range $i, $t := $servers }}
     {
       "name": "{{ $t.name }}",
       "url": "{{ $t.url }}",
       "order": 0
-    {{- if lt (add $i 1) (len $teams) }},{{ end }}
+    {{- if lt (add $i 1) (len $servers) }},{{ end }}
     {{- end }}
     }{{ end }}
   ],
