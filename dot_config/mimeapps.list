@@ -14,3 +14,4 @@ x-scheme-handler/mid=userapp-Thunderbird-JSZ6F3.desktop;
 x-scheme-handler/feed=userapp-Thunderbird-DQEAG3.desktop;
 application/rss+xml=userapp-Thunderbird-DQEAG3.desktop;
 application/x-extension-rss=userapp-Thunderbird-DQEAG3.desktop;
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
