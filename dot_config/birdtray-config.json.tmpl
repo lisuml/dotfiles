@@ -1,45 +1,12 @@
+{{- $bt := .birdtray -}}
 {
     "accounts": [
+        {{- range $i, $a := $bt.accounts }}
         {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/INBOX.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/betterstack.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/gitlab.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/jira.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/notion.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.gmail.com/opsgenie.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/mail.riseup.net/INBOX.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/mail.riseup.net/arch-aur.msf"
-        },
-        {
-            "color": "#0000ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/mail.riseup.net/github.msf"
-        },
-        {
-            "color": "#0055ff",
-            "path": "/home/michal/.thunderbird/33ydl8kg.default-release/ImapMail/imap.fastmail.com/INBOX.msf"
-        }
+            "color": "{{ $bt.color }}",
+            "path": "{{ $.chezmoi.homeDir }}/.thunderbird/{{ $bt.profile }}/{{ $a.subpath }}"
+        }{{ if lt (add $i 1) (len $bt.accounts) }},{{ end }}
+        {{- end }}
     ],
     "advanced/blinkingusealpha": false,
     "advanced/forcedRereadInterval": 0,
