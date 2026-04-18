@@ -24,7 +24,7 @@ chmod 700 "$HOME/.ssh"
 # Generate key if missing
 if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
     echo "Generating per-device SSH key..."
-    ssh-keygen -t ed25519 -a 100 -f "$HOME/.ssh/id_ed25519" -C "michal@{{ .chezmoi.hostname }}"
+    ssh-keygen -t ed25519 -a 100 -f "$HOME/.ssh/id_ed25519" -C "{{ .chezmoi.username }}@{{ .chezmoi.hostname }}"
     chmod 600 "$HOME/.ssh/id_ed25519"
     chmod 644 "$HOME/.ssh/id_ed25519.pub"
 fi
