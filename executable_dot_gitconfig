@@ -46,3 +46,8 @@
   updated = green bold
 [user]
 	name = Michał Lisowski
+	signingkey = E5001A81A85D88FA
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
