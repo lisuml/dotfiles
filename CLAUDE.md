@@ -8,6 +8,10 @@ This is a chezmoi-managed dotfiles repository for Michał Lisowski.
 - Split unrelated changes into separate commits — one commit per logical concern
 - Include all relevant changes in the commit message (e.g. if a file was renamed AND new content was added, mention both)
 
+## README
+
+Always update `README.md` when new configs or tools are added to the repo (new entries in the "What's managed" table).
+
 ## File naming
 
 chezmoi uses prefixed filenames:
