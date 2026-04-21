@@ -51,3 +51,9 @@
 	gpgsign = true
 [tag]
 	gpgsign = true
+{{ range index .git "credential_helpers" -}}
+[credential "{{ .url }}"]
+{{- range .helpers }}
+	helper = {{ . }}
+{{- end }}
+{{ end -}}
