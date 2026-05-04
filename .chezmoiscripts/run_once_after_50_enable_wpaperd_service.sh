@@ -1,9 +1,10 @@
 #!/bin/sh
 set -e
 
-echo "Enabling wpaperd systemd user service..."
-
 systemctl --user daemon-reload
+systemctl --user enable wpaperd.service
 
-systemctl --user enable --now wpaperd.service
-
+# Only start immediately if already in a graphical session
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    systemctl --user start wpaperd.service
+fi
