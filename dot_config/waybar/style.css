@@ -1,0 +1,90 @@
+/* =============================================================================
+ * Waybar configuration — Nord theme
+ * =========================================================================== */
+
+* {
+    color: #eceff4;
+    border: 0;
+    border-radius: 0;
+    padding: 0 0;
+    font-family: Symbols Nerd Font Mono;
+    font-size: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-bottom: 2px;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 20px 20px 20px 20px;
+}
+
+#workspaces button {
+    padding: 2px 0px;
+    border-bottom: 2px;
+    color: #eceff4;
+    border-color: #d8dee9;
+    border-style: solid;
+    margin-top: 2px;
+}
+
+#workspaces button.active {
+    border-color: #81a1c1;
+}
+
+#clock, #battery, #cpu, #memory, #idle_inhibitor, #temperature,
+#backlight, #network, #pulseaudio, #tray, #window,
+#custom-launcher, #custom-power, #custom-updates, #custom-network_traffic, #custom-weather {
+    padding: 0 3px;
+    border-bottom: 2px;
+    border-style: solid;
+}
+
+#clock        { color: #a3be8c; }
+#backlight    { color: #ebcb8b; }
+#battery      { color: #d8dee9; }
+#cpu          { color: #a3be8c; }
+#memory       { color: #d3869b; }
+#temperature  { color: #8fbcbb; }
+#idle_inhibitor { color: #ebcb8b; }
+
+#battery.charging { color: #81a1c1; }
+
+@keyframes blink {
+    to {
+        color: #4c566a;
+        background-color: #eceff4;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: #bf616a;
+    color: #eceff4;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#network         { color: #a3be8c; }
+#network.disabled,
+#network.disconnected { color: #bf616a; }
+
+#pulseaudio      { color: #b48ead; }
+#pulseaudio.muted { color: #e20548; }
+
+#temperature.critical { color: #bf616a; }
+
+#custom-launcher {
+    font-size: 20px;
+    background-image: url('launcher.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-style: hidden;
+}
+
+#custom-power   { border-style: hidden; margin-top: 2px; }
+#window         { border-style: hidden; margin-top: 1px; }
+#custom-network_traffic { color: #d08770; }

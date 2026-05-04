@@ -1,0 +1,29 @@
+/*
+scheme: "Nord"
+author: "arcticicestudio"
+*/
+
+@define-color base03 #4C566A;
+
+* {
+    font-family: UbuntuMono;
+}
+
+#window {
+    margin: 0px 5px 0px 5px;
+}
+
+#outer-box {
+  margin: 5px;
+  padding: 10px;
+  margin-top: -22px;
+}
+
+#text {
+padding: 5px;
+color: white;
+}
+
+#entry:selected {
+    background-color: @base03;
+}
