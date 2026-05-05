@@ -11,7 +11,6 @@ if ! curl -s --connect-timeout 5 -o /dev/null https://archlinux.org; then
     echo "    No connectivity — starting wired DHCP via systemd-networkd..."
     sudo mkdir -p /etc/systemd/network
     printf '[Match]\nName=en*\n\n[Network]\nDHCP=yes\n' | sudo tee /etc/systemd/network/99-wired.network > /dev/null
-    sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
     sudo systemctl start systemd-resolved systemd-networkd
     sleep 5
     curl -s --connect-timeout 10 -o /dev/null https://archlinux.org || { echo "    Still no network. For Wi-Fi: iwctl, then retry."; exit 1; }
@@ -45,10 +44,10 @@ ssh -T git@github.com 2>&1 | grep -q "successfully authenticated" \
 
 # 4. Install yay (AUR helper)
 if ! command -v yay &>/dev/null; then
-    echo "==> Building yay..."
+    echo "==> Installing yay-bin..."
     mkdir -p "$HOME/Documents/repos/aur"
-    git clone https://aur.archlinux.org/yay.git "$HOME/Documents/repos/aur/yay"
-    ( cd "$HOME/Documents/repos/aur/yay" && makepkg -si --noconfirm )
+    git clone https://aur.archlinux.org/yay-bin.git "$HOME/Documents/repos/aur/yay-bin"
+    ( cd "$HOME/Documents/repos/aur/yay-bin" && makepkg -si --noconfirm )
 fi
 
 # 5. Clone this repo
