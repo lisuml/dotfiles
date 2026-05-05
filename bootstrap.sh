@@ -7,14 +7,14 @@ TARGET="$HOME/infra/ansible"
 
 # 1. Network (wired via systemd-networkd — for Wi-Fi use `iwctl` manually first)
 echo "==> Checking network..."
-if ! ping -c 1 -W 3 archlinux.org &>/dev/null; then
+if ! curl -s --connect-timeout 5 -o /dev/null https://archlinux.org; then
     echo "    No connectivity — starting wired DHCP via systemd-networkd..."
     sudo mkdir -p /etc/systemd/network
     printf '[Match]\nName=en*\n\n[Network]\nDHCP=yes\n' | sudo tee /etc/systemd/network/99-wired.network > /dev/null
     sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
     sudo systemctl start systemd-resolved systemd-networkd
     sleep 5
-    ping -c 1 -W 5 archlinux.org > /dev/null || { echo "    Still no network. For Wi-Fi: iwctl, then retry."; exit 1; }
+    curl -s --connect-timeout 10 -o /dev/null https://archlinux.org || { echo "    Still no network. For Wi-Fi: iwctl, then retry."; exit 1; }
 fi
 echo "    OK"
 
