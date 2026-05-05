@@ -13,7 +13,8 @@ chezmoi init --apply https://github.com/michal-lisowski/dotfiles
 | Path | Description |
 |------|-------------|
 | `~/.gitconfig` | Git config with GPG signing, Dracula theme colors |
-| `~/.bashrc` / `~/.zshenv` | Shell environment |
+| `~/.bashrc` / `~/.zshrc` / `~/.zshenv` | Shell environment |
+| `~/.p10k.zsh` | Powerlevel10k prompt theme (Arch-branded) |
 | `~/.vimrc` | Vim config |
 | `~/.config/hypr/` | Hyprland compositor |
 | `~/.config/waybar/` | Waybar status bar |

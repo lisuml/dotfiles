@@ -1,0 +1,49 @@
+# Enable Powerlevel10k instant prompt (must be near top, before any output)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups hist_reduce_blanks share_history
+
+# Completion
+autoload -Uz compinit && compinit
+
+# Emacs keybindings (bash-like)
+bindkey -e
+bindkey '\e[H'    beginning-of-line      # Home
+bindkey '\eOH'    beginning-of-line      # Home (alt seq)
+bindkey '\e[F'    end-of-line            # End
+bindkey '\eOF'    end-of-line            # End (alt seq)
+bindkey '\e[3~'   delete-char            # Delete
+bindkey '\e[1;5C' forward-word           # Ctrl-Right
+bindkey '\e[1;5D' backward-word          # Ctrl-Left
+bindkey '\e[1;3C' forward-word           # Alt-Right
+bindkey '\e[1;3D' backward-word          # Alt-Left
+bindkey '\ed'     kill-word              # Alt-D (delete word forward)
+bindkey '\e\e[3~' kill-word              # Alt-Delete
+bindkey '\e^H'    backward-kill-word     # Alt-Backspace
+bindkey '^[[1;2D' backward-word          # Shift-Left (some terms)
+bindkey '^[[1;2C' forward-word           # Shift-Right (some terms)
+
+# Prefix-based history search with Up/Down (like bash)
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '\e[A' up-line-or-beginning-search
+bindkey '\e[B' down-line-or-beginning-search
+
+# Plugins
+[[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Powerlevel10k theme
+[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && \
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
