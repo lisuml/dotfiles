@@ -1,5 +1,7 @@
 STDIN
 bootstrap.sh
+CLAUDE.md
+README.md
 **/cache/**
 **/CachedData/**
 **/*.log
