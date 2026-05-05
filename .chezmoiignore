@@ -1,4 +1,5 @@
 STDIN
+bootstrap.sh
 **/cache/**
 **/CachedData/**
 **/*.log
