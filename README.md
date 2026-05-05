@@ -24,6 +24,7 @@ chezmoi init --apply https://github.com/michal-lisowski/dotfiles
 | `~/.config/keepassxc/` | KeePassXC settings |
 | `~/.config/gammastep/` | Gammastep (night light) |
 | `~/.config/kanshi/` | Kanshi display profiles |
+| `~/.config/wpaperd/` | wpaperd wallpaper daemon |
 | `~/.config/autostart/` | Autostart entries |
 | `~/.config/mimeapps.list` | Default application associations |
 | `~/.config/systemd/` | User systemd units |
