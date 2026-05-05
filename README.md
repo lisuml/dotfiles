@@ -18,6 +18,7 @@ chezmoi init --apply https://github.com/michal-lisowski/dotfiles
 | `~/.vimrc` | Vim config |
 | `~/.config/hypr/` | Hyprland compositor |
 | `~/.config/waybar/` | Waybar status bar |
+| `~/.config/nwg-launchers/nwgbar/` | nwgbar power menu |
 | `~/.config/foot/` | Foot terminal |
 | `~/.config/ranger/` | Ranger file manager |
 | `~/.config/keepassxc/` | KeePassXC settings |
