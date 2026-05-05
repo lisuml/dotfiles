@@ -69,7 +69,7 @@ while snore ${isecs}; do
     traffic_prev=(${traffic_curr[@]})
   done <<<"${proc_net_dev[@]}"
 
-  printf '{"text": "%4s⇣ %4s⇡", "tooltip": "%s", "percentage": %d}\n' \
+  printf '{"text": " %4s   %4s", "tooltip": "%s", "percentage": %d}\n' \
     $(human_readable ${traffic_delt_aggregate[0]}) \
     $(human_readable ${traffic_delt_aggregate[4]}) \
     "${tooltip}" \
