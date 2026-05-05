@@ -29,6 +29,16 @@ chezmoi init --apply https://github.com/michal-lisowski/dotfiles
 | `~/.local/bin/` | Personal scripts |
 | `~/.ssh/` | SSH config |
 
+## Other files in this repo
+
+| File | Description |
+|------|-------------|
+| `bootstrap.sh` | Arch Linux bootstrap script — sets up network, SSH key, yay, and clones the Ansible repo. Fetched on a fresh install before any authentication is available. |
+| `CLAUDE.md` | Instructions for Claude Code |
+| `README.md` | This file |
+
+These are excluded from chezmoi installation via `.chezmoiignore`.
+
 ## chezmoi file naming
 
 - `dot_` → installed as `.` (e.g. `dot_gitconfig` → `~/.gitconfig`)
