@@ -37,6 +37,7 @@ bindkey '\e[A' up-line-or-beginning-search
 bindkey '\e[B' down-line-or-beginning-search
 
 # Plugins
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
