@@ -1,0 +1,4 @@
+[default]
+path = "/usr/share/backgrounds/"
+duration = "1h"
+transition-time = 600
