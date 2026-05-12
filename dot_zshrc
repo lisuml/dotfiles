@@ -16,8 +16,10 @@ autoload -Uz compinit && compinit
 bindkey -e
 bindkey '\e[H'    beginning-of-line      # Home
 bindkey '\eOH'    beginning-of-line      # Home (alt seq)
+bindkey '\e[1~'   beginning-of-line      # Home (tmux/screen)
 bindkey '\e[F'    end-of-line            # End
 bindkey '\eOF'    end-of-line            # End (alt seq)
+bindkey '\e[4~'   end-of-line            # End (tmux/screen)
 bindkey '\e[3~'   delete-char            # Delete
 bindkey '\e[1;5C' forward-word           # Ctrl-Right
 bindkey '\e[1;5D' backward-word          # Ctrl-Left
