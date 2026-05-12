@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cover=/tmp/spotify-cover.jpg
+
+playerctl --player=spotify --follow metadata --format '{{artist}}|{{title}}|{{mpris:artUrl}}' 2>/dev/null \
+| while IFS='|' read -r artist title art_url; do
+    [[ -z "$title" ]] && continue
+    if [[ -n "$art_url" ]]; then
+        curl -s -o "$cover" "$art_url" && icon="$cover" || icon=spotify
+    else
+        icon=spotify
+    fi
+    notify-send --app-name=Spotify --icon="$icon" --expire-time=3000 "$title" "$artist"
+done
