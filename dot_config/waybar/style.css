@@ -32,6 +32,16 @@ window#waybar {
     border-color: #81a1c1;
 }
 
+#workspaces button.urgent {
+    color: #ebcb8b;
+    border-color: #ebcb8b;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
 #clock, #battery, #cpu, #memory, #idle_inhibitor, #temperature,
 #backlight, #network, #pulseaudio, #tray, #window,
 #custom-launcher, #custom-power, #custom-updates, #custom-network_traffic, #custom-weather {

@@ -2,13 +2,36 @@
 
 cover=/tmp/spotify-cover.jpg
 
-playerctl --player=spotify --follow metadata --format '{{artist}}|{{title}}|{{mpris:artUrl}}' 2>/dev/null \
-| while IFS='|' read -r artist title art_url; do
-    [[ -z "$title" ]] && continue
+notify_track() {
+    local artist="$1" title="$2" art_url="$3"
+    [[ -z "$title" ]] && return
     if [[ -n "$art_url" ]]; then
         curl -s -o "$cover" "$art_url" && icon="$cover" || icon=spotify
     else
         icon=spotify
     fi
-    notify-send --app-name=Spotify --icon="$icon" --expire-time=3000 "$title" "$artist"
+    notify-send --app-name=Spotify --icon="$icon" "$title" "$artist"
+}
+
+# Watch for unpause (status → Playing)
+(
+    playerctl --player=spotify --follow status 2>/dev/null | while read -r status; do
+        [[ "$status" != "Playing" ]] && continue
+        sleep 0.5
+        [[ "$(playerctl --player=spotify status 2>/dev/null)" != "Playing" ]] && continue
+
+        IFS='|' read -r artist title art_url <<< \
+            "$(playerctl --player=spotify metadata \
+               --format '{{artist}}|{{title}}|{{mpris:artUrl}}' 2>/dev/null)"
+
+        notify_track "$artist" "$title" "$art_url"
+    done
+) &
+
+# Watch for track changes
+playerctl --player=spotify --follow metadata \
+    --format '{{artist}}|{{title}}|{{mpris:artUrl}}' 2>/dev/null \
+| while IFS='|' read -r artist title art_url; do
+    [[ -z "$title" ]] && continue
+    notify_track "$artist" "$title" "$art_url"
 done
