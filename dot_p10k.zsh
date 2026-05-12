@@ -1,4 +1,4 @@
-# Powerlevel10k config — Arch themed, based on Manjaro defaults.
+# Powerlevel10k config — Arch themed.
 # Run `p10k configure` to regenerate with the interactive wizard.
 # vim: ft=zsh
 
@@ -221,7 +221,7 @@
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'
   typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
   typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
-  # Always show context (Manjaro hides it when not root/SSH; we show it always)
+  # Always show context, even when not root or SSH
 
   ##[ time ]##
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=0
