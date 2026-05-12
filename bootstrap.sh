@@ -54,7 +54,7 @@ fi
 if [ ! -d "$TARGET/.git" ]; then
     echo "==> Cloning infra-ansible..."
     mkdir -p "$(dirname "$TARGET")"
-    git clone -b arch-support git@github.com:lisuml/infra-ansible "$TARGET"
+    git clone git@github.com:lisuml/infra-ansible "$TARGET"
 fi
 
 # 6. Ansible Vault password
@@ -70,3 +70,4 @@ fi
 
 echo ""
 echo "Bootstrap complete."
+rm -- "$0"
