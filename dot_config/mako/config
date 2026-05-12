@@ -1,16 +1,26 @@
 anchor=bottom-right
-font=monospace 10
-background-color=#000000
-text-color=#ff0000
-width=350
+font=JetBrains Mono 12
+background-color=#2e3440
+text-color=#eceff4
+width=380
 margin=0,20,20
-padding=10
-border-size=1
-border-color=#ff0000
-border-radius=5
+padding=14,16
+border-size=2
+border-color=#81a1c1
+border-radius=8
 default-timeout=10000
 group-by=summary
 icons=1
 
 [grouped]
 format=<b>%s</b>\n%b
+
+[urgency=low]
+border-color=#4c566a
+
+[urgency=normal]
+border-color=#81a1c1
+
+[urgency=high]
+border-color=#bf616a
+background-color=#3b2e2e
