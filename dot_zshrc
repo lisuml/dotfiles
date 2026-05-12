@@ -12,6 +12,9 @@ setopt hist_ignore_all_dups hist_reduce_blanks share_history
 # Completion
 autoload -Uz compinit && compinit
 
+# Treat / as a word boundary (like bash) so alt+backspace deletes one path component
+WORDCHARS="${WORDCHARS:s|/||}"
+
 # Emacs keybindings (bash-like)
 bindkey -e
 bindkey '\e[H'    beginning-of-line      # Home
