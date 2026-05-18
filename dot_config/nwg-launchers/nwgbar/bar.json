@@ -6,7 +6,7 @@
   },
   {
   	"name": "Suspen_d",
-    "exec": "systemctl suspend",
+    "exec": "sh -c 'hyprlock & sleep 1 && systemctl suspend'",
   	"icon": "/usr/share/nwg-launchers/nwgbar/images/suspend.svg"
   },
   {
