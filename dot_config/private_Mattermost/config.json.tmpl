@@ -8,6 +8,7 @@
     {
       "name": "{{ $t.name }}",
       "url": "{{ $t.url }}",
+      "isPredefined": false,
       "order": 0
     {{- if lt (add $i 1) (len $servers) }},{{ end }}
     {{- end }}
@@ -38,5 +39,6 @@
   "alwaysClose": true,
   "autoCheckForUpdates": false,
   "enableSentry": true,
-  "skippedVersions": []
+  "skippedVersions": [],
+  "useNativeTitleBar": false
 }
