@@ -82,7 +82,7 @@ window#waybar {
 #network.disconnected { color: #bf616a; }
 
 #pulseaudio      { color: #b48ead; }
-#pulseaudio.muted { color: #e20548; }
+#pulseaudio.muted { color: #e20548; font-family: "Font Awesome 7 Free", "Symbols Nerd Font Mono"; }
 
 #temperature.critical { color: #bf616a; }
 
