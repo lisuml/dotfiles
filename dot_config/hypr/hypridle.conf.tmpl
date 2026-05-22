@@ -1,3 +1,4 @@
+{{- $kbdDev := (output "brightnessctl" "--list") | regexFind `'\S*kbd_backlight\S*'` | trimAll "'" -}}
 general {
     lock_cmd = pidof hyprlock || hyprlock
     before_sleep_cmd = pidof hyprlock || hyprlock
@@ -9,16 +10,16 @@ listener {
     on-timeout = brightnessctl -s set 10
     on-resume = brightnessctl -r
 }
-
+{{ if $kbdDev }}
 listener {
     timeout = 150
-    on-timeout = brightnessctl -sd rgb:kbd_backlight set 0
-    on-resume = brightnessctl -rd rgb:kbd_backlight
+    on-timeout = brightnessctl -sd {{ $kbdDev }} set 0
+    on-resume = brightnessctl -rd {{ $kbdDev }}
 }
-
+{{ end }}
 listener {
     timeout = 300
-    on-timeout = loginctl lock-session
+    on-timeout = pidof hyprlock || hyprlock
 }
 
 listener {
