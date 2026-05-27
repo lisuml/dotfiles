@@ -5,7 +5,7 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 ## Setup
 
 ```sh
-chezmoi init --apply https://github.com/michal-lisowski/dotfiles
+chezmoi init --apply https://github.com/lisuml/dotfiles
 ```
 
 ## What's managed
@@ -41,6 +41,20 @@ chezmoi init --apply https://github.com/michal-lisowski/dotfiles
 | `README.md` | This file |
 
 These are excluded from chezmoi installation via `.chezmoiignore`.
+
+## Machine-specific data (Ansible)
+
+Some dotfiles are Go templates (`.tmpl`) that require machine-specific data injected via `~/.config/chezmoi/chezmoi.toml`. This file is **not** in the repo — it is rendered by the [Ansible repo](https://github.com/lisuml/infra-ansible) (`roles/chezmoi`) on each managed host.
+
+| Template variable | Source | Used in |
+|---|---|---|
+| `.git.name`, `.git.signingkey` | `group_vars` | `~/.gitconfig` |
+| `.git.credential_helpers` | `group_vars` | `~/.gitconfig` |
+| `.ssh.hosts` | `group_vars` | `~/.ssh/config` |
+| `.mattermost.servers` | `group_vars` | Mattermost config |
+| `.birdtray.*` | `group_vars` | Birdtray config |
+
+On a machine not managed by Ansible, create `~/.config/chezmoi/chezmoi.toml` manually before running `chezmoi apply`.
 
 ## chezmoi file naming
 
