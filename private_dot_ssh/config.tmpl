@@ -1,0 +1,6 @@
+Host *
+  SetEnv TERM=xterm-256color
+{{ range .ssh.hosts -}}
+Host {{ .pattern }}
+  User {{ .user }}
+{{ end -}}

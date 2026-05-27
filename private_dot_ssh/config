@@ -1,4 +1,0 @@
-Host *
-  SetEnv TERM=xterm-256color
-Host *.opsrv.lan *.scxsrv.lan
-  User mlisowski
