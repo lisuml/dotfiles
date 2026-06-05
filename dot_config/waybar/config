@@ -10,7 +10,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock","custom/power"],
+    "modules-right": ["custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock"],
 
  // Modules configuration
 
@@ -110,11 +110,6 @@
        "exec-if": "which waybar-module-pacman-updates",
        "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 7200",
        "on-click": "foot -e update"
-   },
-    "custom/power": {
-      	"format":"⏻",
-       	"on-click": "nwgbar",
-      	"tooltip": false,
    },
 "custom/network_traffic": {
              "exec": "~/.config/waybar/scripts/network_traffic.sh",

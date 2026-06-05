@@ -7,7 +7,7 @@
     border: 0;
     border-radius: 0;
     padding: 0 0;
-    font-family: "JetBrains Mono", "Symbols Nerd Font Mono";
+    font-family: "Fira Sans", "Symbols Nerd Font Mono";
     font-size: 15px;
     margin-right: 5px;
     margin-left: 5px;
@@ -44,7 +44,7 @@ window#waybar {
 
 #clock, #battery, #cpu, #memory, #idle_inhibitor, #temperature,
 #backlight, #network, #pulseaudio, #tray, #window,
-#custom-launcher, #custom-power, #custom-updates, #custom-network_traffic, #custom-weather {
+#custom-launcher, #custom-updates, #custom-network_traffic, #custom-weather {
     padding: 0 3px;
     border-bottom: 2px;
     border-style: solid;
@@ -95,6 +95,5 @@ window#waybar {
     border-style: hidden;
 }
 
-#custom-power   { border-style: hidden; margin-top: 2px; }
 #window         { border-style: hidden; margin-top: 1px; }
 #custom-network_traffic { color: #d08770; }
