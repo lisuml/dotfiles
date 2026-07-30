@@ -16,7 +16,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.bashrc` / `~/.zshrc` / `~/.zshenv` | Shell environment |
 | `~/.p10k.zsh` | Powerlevel10k prompt theme (Arch-branded) |
 | `~/.vimrc` | Vim config |
-| `~/.config/hypr/` | Hyprland compositor |
+| `~/.config/hypr/` | Hyprland compositor (Lua config), hyprlock, hypridle |
 | `~/.config/waybar/` | Waybar status bar |
 | `~/.config/nwg-launchers/nwgbar/` | nwgbar power menu |
 | `~/.config/foot/` | Foot terminal |
