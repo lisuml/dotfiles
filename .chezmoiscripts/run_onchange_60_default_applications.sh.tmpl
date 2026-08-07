@@ -1,0 +1,36 @@
+#!/bin/sh
+set -eu
+
+# Set default applications for file types.
+#
+# Uses xdg-mime rather than a chezmoi-managed ~/.config/mimeapps.list because
+# Thunderbird and Firefox write their own userapp-*.desktop associations into
+# that file at runtime, with per-install random IDs. xdg-mime merges into the
+# existing file instead of replacing it.
+#
+# The line below is what makes run_onchange_ re-run this script once an
+# application is actually installed — without it the content hash would never
+# change and the associations would stay unset after a "skipping" run.
+#
+# libreoffice-writer installed: {{ if stat "/usr/share/applications/libreoffice-writer.desktop" }}yes{{ else }}no{{ end }}
+
+set_default() {
+    desktop="$1"
+    shift
+
+    if [ ! -f "/usr/share/applications/$desktop" ] &&
+        [ ! -f "$HOME/.local/share/applications/$desktop" ]; then
+        echo "skipping $desktop (not installed)"
+        return 0
+    fi
+
+    for mime in "$@"; do
+        xdg-mime default "$desktop" "$mime"
+    done
+}
+
+# Word processor documents — .doc, .docx, .odt
+set_default libreoffice-writer.desktop \
+    application/msword \
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document \
+    application/vnd.oasis.opendocument.text
