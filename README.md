@@ -22,6 +22,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/foot/` | Foot terminal |
 | `~/.config/ranger/` | Ranger file manager |
 | `~/.config/keepassxc/` | KeePassXC settings |
+| `~/.config/rofi-rbw.rc` | rofi-rbw — Bitwarden picker over `rbw`, launched by `bw-picker` / `bw-open` |
 | `~/.config/gammastep/` | Gammastep (night light) |
 | `~/.config/kanshi/` | Kanshi display profiles |
 | `~/.config/wpaperd/` | wpaperd wallpaper daemon |

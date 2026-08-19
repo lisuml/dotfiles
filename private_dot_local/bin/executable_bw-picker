@@ -1,0 +1,34 @@
+#!/bin/sh
+# rofi-rbw, plus a clipboard clear that actually happens.
+#
+# rofi-rbw's own --clear-after is broken under Wayland. It clears only when the
+# clipboard still holds what it copied, but reads it back with `wl-paste`, which
+# appends a trailing newline — so the comparison never matches, `wl-copy --clear`
+# is never reached, and it just sleeps for the duration and exits. See
+# clear_clipboard_after() in /usr/lib/python3*/site-packages/rofi_rbw/clipboarder/wlclip.py.
+#
+# clear-after is therefore 0 in ~/.config/rofi-rbw.rc and the clearing lives here.
+#
+# Bound in ~/.config/hypr/hyprland.lua: SUPER+B copies the password,
+# SUPER+SHIFT+B passes `--target menu` to pick a field. Arguments are forwarded,
+# and a --target on the command line replaces the one in rofi-rbw.rc.
+
+set -u
+
+CLEAR_AFTER="${BW_PICKER_CLEAR_AFTER:-10}"
+
+before=$(wl-paste --no-newline 2>/dev/null || true)
+rofi-rbw "$@"
+after=$(wl-paste --no-newline 2>/dev/null || true)
+
+# Clipboard unchanged: cancelled, or a "type" action that never copied anything.
+[ "$after" != "$before" ] || exit 0
+[ -n "$after" ] || exit 0
+
+# Clear in the background so the picker does not linger. Re-check first, so a
+# clipboard entry copied in the meantime is not clobbered.
+(
+    sleep "$CLEAR_AFTER"
+    still=$(wl-paste --no-newline 2>/dev/null || true)
+    [ "$still" = "$after" ] && wl-copy --clear
+) >/dev/null 2>&1 &

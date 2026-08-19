@@ -1,0 +1,33 @@
+# rofi-rbw — dmenu-style Bitwarden picker on top of rbw.
+#
+# Long option names, no leading dashes; see rofi-rbw(1).
+# Launched by ~/.local/bin/bw-picker, bound in ~/.config/hypr/hyprland.lua.
+#
+# rofi-rbw's Alt+* shortcuts (Alt+u copy username, Alt+c copy password, Alt+t
+# copy totp, Alt+1..4 type) do NOT work here: only the rofi selector implements
+# them. Wofi.show_selection() takes the keybindings argument and ignores it, so
+# every lookup uses the action/target configured below. Hence two bindings:
+# SUPER+B copies the password, SUPER+SHIFT+B opens a second menu of the entry's
+# fields to pick from.
+
+selector = wofi
+clipboarder = wl-copy
+typer = wtype
+
+# Copy rather than type by default — typing into the just-refocused window is
+# racy under Hyprland.
+action = copy
+
+# Copy only the password on Enter. This is also what arms clear-after below:
+# rofi-rbw only clears when the copy had exactly one target and it was the
+# password. Left unset it copies username *and* password, and skips the clear.
+# Keybindings override this, so Alt+u still copies the username.
+target = password
+
+# Disabled deliberately: rofi-rbw's clear is broken under Wayland. It reads the
+# clipboard back with `wl-paste`, which appends a trailing newline, so its
+# "is what I copied still there?" check never matches and it never clears — it
+# only blocks for the duration. ~/.local/bin/bw-picker does the clearing instead.
+clear-after = 0
+
+prompt = bitwarden

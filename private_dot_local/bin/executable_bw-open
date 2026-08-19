@@ -1,0 +1,36 @@
+#!/bin/sh
+# Pick a Bitwarden entry and open its URI in the default browser.
+#
+# rofi-rbw has no "open" action — only type, copy and print. So this asks for
+# `--action print --target uri`, which writes the entry's first URI to stdout,
+# and hands that to xdg-open.
+#
+# An entry with no URIs is an uncaught IndexError inside rofi-rbw
+# (Credentials.__getitem__ does `self.uris[target.uri_index()]`), so a non-zero
+# exit here usually means "that entry has no URI" rather than a real failure.
+#
+# Bound to SUPER+CTRL+B in ~/.config/hypr/hyprland.lua.
+
+set -u
+
+uri=$(rofi-rbw --action print --target uri "$@" 2>/dev/null) || {
+    notify-send -u normal -t 3000 "bw-open" "No URI on that entry"
+    exit 0
+}
+
+# Cancelled at the picker.
+[ -n "$uri" ] || exit 0
+
+# rofi-rbw prints one target per line; take the first in case that ever changes.
+uri=$(printf '%s\n' "$uri" | head -n1)
+
+case "$uri" in
+    http://*|https://*) ;;
+    *://*)
+        notify-send -u normal -t 3000 "bw-open" "Refusing non-web URI: $uri"
+        exit 0
+        ;;
+    *) uri="https://$uri" ;;
+esac
+
+xdg-open "$uri" >/dev/null 2>&1 &
