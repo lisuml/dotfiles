@@ -1,7 +1,10 @@
 {{- $kbdDev := (output "brightnessctl" "--list") | regexFind `'\S*kbd_backlight\S*'` | trimAll "'" -}}
+# `rbw lock` runs before hyprlock in each of the three lock paths below:
+# hyprlock blocks until dismissed, so the vault has to be locked first. `;`
+# rather than `&&` keeps the screen locking on hosts without rbw installed.
 general {
-    lock_cmd = pidof hyprlock || hyprlock
-    before_sleep_cmd = pidof hyprlock || hyprlock
+    lock_cmd = rbw lock; pidof hyprlock || hyprlock
+    before_sleep_cmd = rbw lock; pidof hyprlock || hyprlock
     after_sleep_cmd = hyprctl dispatch dpms on
 }
 
@@ -19,7 +22,7 @@ listener {
 {{ end }}
 listener {
     timeout = 300
-    on-timeout = pidof hyprlock || hyprlock
+    on-timeout = rbw lock; pidof hyprlock || hyprlock
 }
 
 listener {
