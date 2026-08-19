@@ -44,10 +44,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
     hl.exec_cmd("/usr/bin/gnome-keyring-daemon --start --components=secrets")
 
-    -- Clipboard history (text and images kept separately)
-    hl.exec_cmd("wl-paste --type text --watch cliphist store")
-    hl.exec_cmd("wl-paste --type image --watch cliphist store")
-
     -- GTK settings and X resources for XWayland clients
     hl.exec_cmd("apply-gsettings")
     hl.exec_cmd("xrdb -load ~/.Xresources")
@@ -234,7 +230,6 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("emote"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd(drawer))
 hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(launcher), { release = true })
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("killall -9 wpaperd"))
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.local/bin/hypr-monitor-chooser"))
 
