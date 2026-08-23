@@ -1,0 +1,14 @@
+#!/bin/sh
+# Lock the screen, locking the Bitwarden vault first.
+#
+# The single entry point for every screen-lock path — nwgbar's power menu,
+# hypridle's lock_cmd and hypridle's idle listener — so no path can lock the
+# screen while leaving the vault open. nwgbar used to call hyprlock directly,
+# which bypassed the vault lock entirely.
+#
+# hyprlock blocks until it is dismissed, so `rbw lock` has to run first. Its
+# failure is ignored so the screen still locks on hosts without rbw installed.
+
+rbw lock 2>/dev/null || true
+
+pidof hyprlock || hyprlock

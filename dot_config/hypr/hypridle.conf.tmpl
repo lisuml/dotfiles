@@ -1,10 +1,10 @@
 {{- $kbdDev := (output "brightnessctl" "--list") | regexFind `'\S*kbd_backlight\S*'` | trimAll "'" -}}
-# `rbw lock` runs before hyprlock in each of the three lock paths below:
-# hyprlock blocks until dismissed, so the vault has to be locked first. `;`
-# rather than `&&` keeps the screen locking on hosts without rbw installed.
+# All lock paths go through ~/.local/bin/lock-screen, which locks the Bitwarden
+# vault and then runs hyprlock. nwgbar's power menu calls the same script, so a
+# lock started there is not dependent on hypridle running.
 general {
-    lock_cmd = rbw lock; pidof hyprlock || hyprlock
-    before_sleep_cmd = rbw lock; pidof hyprlock || hyprlock
+    lock_cmd = $HOME/.local/bin/lock-screen
+    before_sleep_cmd = $HOME/.local/bin/lock-screen
     after_sleep_cmd = hyprctl dispatch dpms on
 }
 
@@ -22,7 +22,7 @@ listener {
 {{ end }}
 listener {
     timeout = 300
-    on-timeout = rbw lock; pidof hyprlock || hyprlock
+    on-timeout = $HOME/.local/bin/lock-screen
 }
 
 listener {

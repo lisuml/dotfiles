@@ -1,12 +1,12 @@
 [
   {
     "name": "_Lock screen",
-    "exec": "hyprlock",
+    "exec": "sh -c '$HOME/.local/bin/lock-screen'",
     "icon": "/usr/share/nwg-launchers/nwgbar/images/lock.svg"
   },
   {
   	"name": "Suspen_d",
-    "exec": "sh -c 'hyprlock & sleep 1 && systemctl suspend'",
+    "exec": "sh -c '$HOME/.local/bin/lock-screen & sleep 1 && systemctl suspend'",
   	"icon": "/usr/share/nwg-launchers/nwgbar/images/suspend.svg"
   },
   {

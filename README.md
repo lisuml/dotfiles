@@ -18,7 +18,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.vimrc` | Vim config |
 | `~/.config/hypr/` | Hyprland compositor (Lua config), hyprlock, hypridle |
 | `~/.config/waybar/` | Waybar status bar |
-| `~/.config/nwg-launchers/nwgbar/` | nwgbar power menu |
+| `~/.config/nwg-launchers/nwgbar/` | nwgbar power menu — lock and suspend go through `lock-screen` |
 | `~/.config/foot/` | Foot terminal |
 | `~/.config/ranger/` | Ranger file manager |
 | `~/.config/keepassxc/` | KeePassXC settings |
