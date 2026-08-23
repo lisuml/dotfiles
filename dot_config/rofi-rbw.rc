@@ -12,16 +12,21 @@
 
 selector = wofi
 clipboarder = wl-copy
+
+# Required even though nothing here ever types: RofiRbw.__init__ builds a typer
+# unconditionally and calls get_active_window() on it straight away, and the noop
+# fallback raises NoTyperFoundException. Remove wtype and rofi-rbw dies before
+# the picker appears, copy-only use included.
 typer = wtype
 
-# Copy rather than type by default — typing into the just-refocused window is
-# racy under Hyprland.
+# The type shortcuts are unreachable under wofi (see above), so copy is the only
+# action ever in play.
 action = copy
 
 # Copy only the password on Enter. This is also what arms clear-after below:
 # rofi-rbw only clears when the copy had exactly one target and it was the
 # password. Left unset it copies username *and* password, and skips the clear.
-# Keybindings override this, so Alt+u still copies the username.
+# Other fields come from SUPER+SHIFT+B, which passes --target menu.
 target = password
 
 # Disabled deliberately: rofi-rbw's clear is broken under Wayland. It reads the
