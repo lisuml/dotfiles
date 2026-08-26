@@ -1,2 +1,9 @@
 export PATH="$HOME/.local/bin:$PATH"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# Mount the host Claude Code config into dev workspaces (whitespace-separated
+# <host>:<container>[:ro|rw], ro by default). Container paths must be absolute
+# and under /home/runner/ — but below the .claude volume mountpoint, not on it.
+export WS_DEV_MOUNTS="$HOME/.claude/settings.json:/home/runner/.claude/settings.json
+  $HOME/.claude/statusline.sh:/home/runner/.claude/statusline.sh
+  $HOME/.claude/keybindings.json:/home/runner/.claude/keybindings.json"
