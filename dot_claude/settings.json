@@ -1,0 +1,13 @@
+{
+  "tui": "default",
+  "theme": "dark",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "permissions": {
+    "defaultMode": "default",
+    "disableAutoMode": "disable"
+  }
+}

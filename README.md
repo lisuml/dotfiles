@@ -29,6 +29,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/autostart/` | Autostart entries |
 | `~/.config/mimeapps.list` | Default application associations — set via `xdg-mime` in `.chezmoiscripts/run_onchange_60_default_applications.sh`, not managed as a file (Thunderbird and Firefox mutate it at runtime) |
 | `~/.config/systemd/` | User systemd units |
+| `~/.claude/` | Claude Code — `settings.json` (status line, permission defaults), `statusline.sh`, `keybindings.json`. Mounted into dev workspace containers via `WS_DEV_MOUNTS` in `~/.zshenv` |
 | `~/.mozilla/` | Firefox profile |
 | `~/.local/bin/` | Personal scripts |
 | `~/.ssh/` | SSH config |
