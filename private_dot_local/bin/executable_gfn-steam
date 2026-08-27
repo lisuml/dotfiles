@@ -1,0 +1,23 @@
+#!/bin/sh
+# Launch GeForce NOW as a Chromium app window, for use as a non-Steam game.
+#
+# GFN runs in the browser rather than a desktop client: NVIDIA's Flatpak pins
+# its render device to /dev/dri/renderD128 (the Intel iGPU here) and ends up
+# software-decoding the stream, while Chromium uses the discrete GPU where
+# VA-API works. See the `gaming` role in the Ansible repo.
+#
+# Steam injects its runtime into every game it launches; LD_PRELOAD (the Steam
+# overlay) and LD_LIBRARY_PATH (the runtime's own libs) make the system
+# Chromium fail to start, so both are cleared before exec.
+#
+# --ozone-platform=x11 keeps it on XWayland: Chromium's Wayland backend has no
+# working VA-API path here, and Gamescope/Steam Big Picture expect X11 anyway.
+# A dedicated --user-data-dir keeps the GFN login out of the normal profile.
+
+unset LD_PRELOAD
+unset LD_LIBRARY_PATH
+
+exec /usr/bin/chromium \
+  --ozone-platform=x11 \
+  --user-data-dir="$HOME/.config/chromium-gfn" \
+  --app=https://play.geforcenow.com
