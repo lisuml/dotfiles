@@ -46,7 +46,7 @@ These are excluded from chezmoi installation via `.chezmoiignore`.
 
 ## Machine-specific data (Ansible)
 
-Some dotfiles are Go templates (`.tmpl`) that require machine-specific data injected via `~/.config/chezmoi/chezmoi.toml`. This file is **not** in the repo — it is rendered by the [Ansible repo](https://github.com/lisuml/infra-ansible) (`roles/chezmoi`) on each managed host.
+Some dotfiles are Go templates (`.tmpl`) that require machine-specific data injected via `~/.config/chezmoi/chezmoi.toml`. This file is **not** in the repo — it is rendered on each managed host by Ansible, from a separate private repo.
 
 | Template variable | Source | Used in |
 |---|---|---|
