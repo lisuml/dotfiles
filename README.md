@@ -13,7 +13,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | Path | Description |
 |------|-------------|
 | `~/.gitconfig` | Git config with GPG signing, Dracula theme colors |
-| `~/.bashrc` / `~/.zshrc` / `~/.zshenv` | Shell environment |
+| `~/.bashrc` / `~/.zshrc` / `~/.zshenv` | Shell environment — `~/.zshenv` also exports the dev workspace settings (`WS_SSH_USER`, `WS_DEV_MOUNTS`), templated in and only on hosts where they apply |
 | `~/.p10k.zsh` | Powerlevel10k prompt theme (Arch-branded) |
 | `~/.vimrc` | Vim config |
 | `~/.config/hypr/` | Hyprland compositor (Lua config), hyprlock, hypridle |
@@ -29,7 +29,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/autostart/` | Autostart entries |
 | `~/.config/mimeapps.list` | Default application associations — set via `xdg-mime` in `.chezmoiscripts/run_onchange_60_default_applications.sh`, not managed as a file (Thunderbird and Firefox mutate it at runtime) |
 | `~/.config/systemd/` | User systemd units |
-| `~/.claude/` | Claude Code — `settings.json` (status line, permission defaults), `statusline.sh`, `keybindings.json`. Mounted into dev workspace containers via `WS_DEV_MOUNTS` in `~/.zshenv` |
+| `~/.claude/` | Claude Code — `settings.json` (status line, permission defaults), `statusline.sh`, `keybindings.json`. Mounted into dev workspace containers via `WS_DEV_MOUNTS` in `~/.zshenv`, where enabled |
 | `~/.mozilla/` | Firefox profile |
 | `~/.local/bin/` | Personal scripts |
 | `~/.ssh/` | SSH config |
