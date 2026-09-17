@@ -13,5 +13,7 @@ export WS_PLAY_BAO=1
 # and under /home/runner/ — but below the .claude volume mountpoint, not on it.
 export WS_DEV_MOUNTS="$HOME/.claude/settings.json:/home/runner/.claude/settings.json
   $HOME/.claude/statusline.sh:/home/runner/.claude/statusline.sh
-  $HOME/.claude/keybindings.json:/home/runner/.claude/keybindings.json"
+  $HOME/.claude/keybindings.json:/home/runner/.claude/keybindings.json
+  $HOME/.claude/style:/home/runner/.claude/style
+  $HOME/.claude/CLAUDE.md:/home/runner/.claude/CLAUDE.md"
 {{ end -}}
