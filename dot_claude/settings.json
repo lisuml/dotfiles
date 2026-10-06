@@ -1,6 +1,11 @@
 {
   "tui": "default",
   "theme": "dark",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
