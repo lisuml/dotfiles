@@ -9,6 +9,13 @@ output "Lenovo Group Limited L24q-10 U5V0Y19A" {
     position 0,0
 }
 
+# Samsung TV (home PC)
+output "Samsung Electric Company Q70A 0x01000E00" {
+    mode 3840x2160@60.00Hz
+    scale 2
+    position 0,0
+}
+
 # Laptop internal
 output eDP-1 {
     mode 1920x1200@60.00Hz
@@ -35,4 +42,9 @@ profile laptop_docked_lenovo_only {
 # Any machine with ONLY Lenovo (e.g. home PC)
 profile lenovo_only {
     output "Lenovo Group Limited L24q-10 U5V0Y19A" enable
+}
+
+# Home PC on the Samsung TV
+profile samsung_only {
+    output "Samsung Electric Company Q70A 0x01000E00" enable
 }
