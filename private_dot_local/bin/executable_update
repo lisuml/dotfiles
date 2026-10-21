@@ -1,0 +1,13 @@
+#!/bin/bash
+# Upgrade pacman/AUR packages and Flatpaks, then remove orphaned packages and
+# unused Flatpak runtimes. Stops at the first step that fails.
+
+set -e
+
+yay
+flatpak update
+cleanpac
+flatpak uninstall --unused
+
+# Refresh the waybar Flatpak counter instead of waiting for its next poll.
+pkill -RTMIN+8 -x waybar || true
