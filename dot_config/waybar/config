@@ -10,7 +10,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock"],
+    "modules-right": ["custom/updates", "custom/flatpak-updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock"],
 
  // Modules configuration
 
@@ -108,8 +108,18 @@
            "updated": "󰂪",
        },
        "exec-if": "which waybar-module-pacman-updates",
-       "exec": "waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 7200",
-       "on-click": "foot -e update"
+       "exec": "waybar-module-pacman-updates --no-zero-output --interval-seconds 5 --network-interval-seconds 7200",
+       "hide-empty-text": true
+   },
+   "custom/flatpak-updates": {
+       "format": "{} {icon}",
+       "return-type": "json",
+       "format-icons": {
+           "has-updates": "",
+       },
+       "interval": 900,
+       "signal": 8,
+       "exec": "~/.config/waybar/scripts/flatpak-updates.sh"
    },
 "custom/network_traffic": {
              "exec": "~/.config/waybar/scripts/network_traffic.sh",

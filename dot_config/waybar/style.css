@@ -44,7 +44,7 @@ window#waybar {
 
 #clock, #battery, #cpu, #memory, #idle_inhibitor, #temperature,
 #backlight, #network, #pulseaudio, #tray, #window,
-#custom-launcher, #custom-updates, #custom-network_traffic, #custom-weather {
+#custom-launcher, #custom-updates, #custom-flatpak-updates, #custom-network_traffic, #custom-weather {
     padding: 0 3px;
     border-bottom: 2px;
     border-style: solid;
