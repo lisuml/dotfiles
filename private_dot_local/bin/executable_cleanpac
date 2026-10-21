@@ -1,3 +1,5 @@
 #!/bin/bash
 
-pacman -Qdtq | sudo pacman -Rns -
+# pacman -Qdtq exits non-zero when there are no orphans
+orphans=$(pacman -Qdtq) || exit 0
+sudo pacman -Rns - <<< "$orphans"
