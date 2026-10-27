@@ -23,7 +23,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/ranger/` | Ranger file manager |
 | `~/.config/keepassxc/` | KeePassXC settings |
 | `~/.config/rofi-rbw.rc` | rofi-rbw — Bitwarden picker over `rbw`, launched by `bw-picker` / `bw-open` |
-| `~/.config/gammastep/` | Gammastep (night light) |
+| `~/.config/gammastep/` | Gammastep (night light) — runs as the packaged `gammastep.service` user unit, enabled by `.chezmoiscripts/run_once_after_50_enable_gammastep_service.sh` |
 | `~/.config/kanshi/` | Kanshi display profiles |
 | `~/.config/wpaperd/` | wpaperd wallpaper daemon |
 | `~/.config/autostart/` | Autostart entries |

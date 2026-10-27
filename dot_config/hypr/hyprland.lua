@@ -51,10 +51,6 @@ hl.on("hyprland.start", function()
     -- Idle handling / lock
     hl.exec_cmd("hypridle")
 
-    -- Colour temperature based on location
-    hl.exec_cmd("/usr/lib/geoclue-2.0/demos/agent")
-    hl.exec_cmd("gammastep")
-
     -- Semi-automated monitor layout detection
     hl.exec_cmd("kanshi")
 end)
