@@ -20,6 +20,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/waybar/` | Waybar status bar |
 | `~/.config/nwg-launchers/nwgbar/` | nwgbar power menu — lock and suspend go through `lock-screen` |
 | `~/.config/foot/` | Foot terminal |
+| `~/.config/tuios/config.toml` | tuios terminal window manager — tuios also writes it from its in-app settings |
 | `~/.config/ranger/` | Ranger file manager |
 | `~/.config/keepassxc/` | KeePassXC settings |
 | `~/.config/rofi-rbw.rc` | rofi-rbw — Bitwarden picker over `rbw`, launched by `bw-picker` / `bw-open` |
