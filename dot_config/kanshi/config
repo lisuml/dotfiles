@@ -9,6 +9,13 @@ output "Lenovo Group Limited L24q-10 U5V0Y19A" {
     position 0,0
 }
 
+# Dell external (Barcelona office)
+output "Dell Inc. DELL U2723QE C02F3P3" {
+    mode 3840x2160@60.00Hz
+    scale 1.5
+    position 0,0
+}
+
 # Samsung TV (home PC)
 output "Samsung Electric Company Q70A 0x01000E00" {
     mode 3840x2160@60.00Hz
@@ -37,6 +44,12 @@ profile laptop_undocked_internal_only {
 profile laptop_docked_lenovo_only {
     output eDP-1 disable
     output "Lenovo Group Limited L24q-10 U5V0Y19A" enable
+}
+
+# Barcelona office: ONLY Dell
+profile barcelona_office {
+    output eDP-1 disable
+    output "Dell Inc. DELL U2723QE C02F3P3" enable
 }
 
 # Any machine with ONLY Lenovo (e.g. home PC)
