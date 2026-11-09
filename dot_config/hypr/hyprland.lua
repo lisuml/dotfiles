@@ -230,7 +230,6 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("~/.local/bin/bw-picker"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.local/bin/bw-picker --target menu"))
 hl.bind(mainMod .. " + CTRL + B", hl.dsp.exec_cmd("~/.local/bin/bw-open"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("killall -9 wpaperd"))
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.local/bin/hypr-monitor-chooser"))
 
 -- mainMod + function keys
 hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd(browser))
