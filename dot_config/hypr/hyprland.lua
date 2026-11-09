@@ -187,7 +187,7 @@ hl.window_rule({ match = { float = true }, opacity = "0.85 0.85" })
 
 -- Assign certain applications to specific workspaces
 hl.window_rule({ match = { class = "^(firefox)$" },                        workspace = "1 silent" })
-hl.window_rule({ match = { class = "^(Spotify)$" },                        workspace = "8 silent" })
+hl.window_rule({ match = { class = "^(spotify)$" },                        workspace = "8 silent" })
 hl.window_rule({ match = { class = "^(org.mozilla.Thunderbird)$" },        workspace = "9 silent" })
 hl.window_rule({ match = { class = "^(org\\.telegram\\.desktop)$" },       workspace = "10 silent" })
 hl.window_rule({ match = { class = "^([Mm]attermost([.-][Dd]esktop)?)$" }, workspace = "10 silent" })
