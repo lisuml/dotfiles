@@ -72,8 +72,9 @@
         "on-click": "foot -e htop"
     },
     "temperature": {
-        "thermal-zone": 7,  // Check with: # cat /sys/class/hwmon/hwmon*/temp1_input
-        "hwmon-path": "/sys/class/hwmon/hwmon7/temp1_input",
+        // CPU package sensor: Intel coretemp, else AMD k10temp
+        "hwmon-path-abs": ["/sys/devices/platform/coretemp.0/hwmon", "/sys/devices/pci0000:00/0000:00:18.3/hwmon"],
+        "input-filename": "temp1_input",
         "critical-threshold": 80,
         "format-critical": "{temperatureC}°C ",
         "format": "{temperatureC}°C "
