@@ -126,6 +126,13 @@ preset = "tmux"
 
 [appearance]
 theme = ""
+glyphs = "default"
+border_style = "rounded"
+frame_panels = false
+pane_overlays = false
+window_title_position = "top"
+shared_borders = false
+hide_window_buttons = false
 
 [spotlight]
 enabled = false
