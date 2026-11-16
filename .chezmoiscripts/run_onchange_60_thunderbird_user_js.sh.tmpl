@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+# Write user.js into the Thunderbird profile. A script rather than a managed
+# file because the profile directory name comes from template data.
+#
+# The line below re-runs this script once Thunderbird has created the profile.
+#
+# profile exists: {{ if stat (joinPath .chezmoi.homeDir ".thunderbird" .thunderbird.profile) }}yes{{ else }}no{{ end }}
+
+profile="$HOME/.thunderbird/{{ .thunderbird.profile }}"
+
+if [ ! -d "$profile" ]; then
+    echo "skipping Thunderbird user.js ($profile does not exist)"
+    exit 0
+fi
+
+cat > "$profile/user.js" <<'EOF'
+// UI font size in CSS px, multiplied by the output scale. Message text grows
+// by the same step over its own size.
+user_pref("mail.uifontsize", 17);
+// Floor for text in emails that hardcode small font sizes.
+user_pref("font.minimum-size.x-western", 18);
+EOF

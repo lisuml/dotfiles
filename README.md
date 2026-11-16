@@ -32,6 +32,7 @@ chezmoi init --apply https://github.com/lisuml/dotfiles
 | `~/.config/systemd/` | User systemd units |
 | `~/.claude/` | Claude Code — `settings.json` (status line, permission defaults), `statusline.sh`, `keybindings.json`. Mounted into dev workspace containers via `WS_DEV_MOUNTS` in `~/.zshenv`, where enabled — along with `~/.claude/CLAUDE.md` and `~/.claude/style/`, which Ansible manages because their content is work-specific |
 | `~/.mozilla/` | Firefox profile |
+| `~/.thunderbird/<profile>/user.js` | Thunderbird prefs (UI and minimum font size) — written by `.chezmoiscripts/run_onchange_60_thunderbird_user_js.sh`, since the profile directory name comes from template data |
 | `~/.local/bin/` | Personal scripts |
 | `~/.ssh/` | SSH config |
 
@@ -55,7 +56,7 @@ Some dotfiles are Go templates (`.tmpl`) that require machine-specific data inje
 | `.git.credential_helpers` | `group_vars` | `~/.gitconfig` |
 | `.ssh.hosts` | `group_vars` | `~/.ssh/config` |
 | `.mattermost.servers` | `group_vars` | Mattermost config |
-| `.thunderbird.profile` | `group_vars` | Birdtray config |
+| `.thunderbird.profile` | `group_vars` | Thunderbird `user.js`, Birdtray config |
 | `.birdtray.*` | `group_vars` | Birdtray config |
 
 On a machine not managed by Ansible, create `~/.config/chezmoi/chezmoi.toml` manually before running `chezmoi apply`.
