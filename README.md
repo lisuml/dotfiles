@@ -55,6 +55,7 @@ Some dotfiles are Go templates (`.tmpl`) that require machine-specific data inje
 | `.git.credential_helpers` | `group_vars` | `~/.gitconfig` |
 | `.ssh.hosts` | `group_vars` | `~/.ssh/config` |
 | `.mattermost.servers` | `group_vars` | Mattermost config |
+| `.thunderbird.profile` | `group_vars` | Birdtray config |
 | `.birdtray.*` | `group_vars` | Birdtray config |
 
 On a machine not managed by Ansible, create `~/.config/chezmoi/chezmoi.toml` manually before running `chezmoi apply`.

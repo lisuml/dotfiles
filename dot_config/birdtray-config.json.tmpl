@@ -4,7 +4,7 @@
         {{- range $i, $a := $bt.accounts }}
         {
             "color": "{{ $bt.color }}",
-            "path": "{{ $.chezmoi.homeDir }}/.thunderbird/{{ $bt.profile }}/{{ $a.subpath }}"
+            "path": "{{ $.chezmoi.homeDir }}/.thunderbird/{{ $.thunderbird.profile }}/{{ $a.subpath }}"
         }{{ if lt (add $i 1) (len $bt.accounts) }},{{ end }}
         {{- end }}
     ],
