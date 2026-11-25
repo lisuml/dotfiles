@@ -10,7 +10,8 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/updates", "custom/flatpak-updates", "backlight", "temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock"],
+    // backlight only with a screen backlight: without one, waybar falls back to an LED
+    "modules-right": ["custom/updates", "custom/flatpak-updates", {{ if glob "/sys/class/backlight/*" }}"backlight", {{ end }}"temperature", "cpu", "memory", "battery", "pulseaudio", "tray", "idle_inhibitor", "clock"],
 
  // Modules configuration
 
